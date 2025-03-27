@@ -1,22 +1,26 @@
 package com.myanimelist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.myanimelist.databinding.ActivityMainBinding;
-
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Anime anime;
     private ActivityMainBinding binding;
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private TextView animeNames;
+    private DatabaseManager databaseManager;
+    private ArrayList<Anime> animes;
+    private LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,37 +29,47 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-// Inicializando a lista e o adaptador
-        items = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        databaseManager = new DatabaseManager(this);
+        params.setMargins(0, 0, 0, 30);
 
-        // Vinculando o adaptador ao ListView
-        binding.listView.setAdapter(adapter);
+        atualizarListaAnimes();
 
-        // Adicionando itens dinamicamente
-        addItem("Item 1");
-        addItem("Item 2");
-        addItem("Item 3");
-
-        // Você pode adicionar novos itens em tempo de execução
-        addItem("Novo Item 4");
-        Log.d("MainActivity", "Lista de itens: " + items.toString());
-
-        adapter.notifyDataSetChanged();
-
-
-    }
-    private void addItem(String newItem) {
-        items.add(newItem); // Adiciona o item à lista
-        adapter.notifyDataSetChanged(); // Atualiza o ListView
+        binding.addAnime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AdicionarAnime.class);
+                startActivityForResult(intent,1);
+            }
+        });
     }
 
-        private ArrayList<String> getNamesList() {
-        ArrayList<String> names = new ArrayList<>();
-        names.add("John");
-        names.add("Alice");
-        names.add("Bob");
-        return names;
+    private void atualizarListaAnimes() {
+        animes = databaseManager.getAllAnimeNames();
+        for (int i = 0; i < animes.size(); i++) {
+            animeNames = new TextView(this);
+            animeNames.setTextSize(18);
+            animeNames.setLayoutParams(params);
+            animeNames.setText(animes.get(i).getNome());
+            animeNames.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    anime = Anime.findAnimeByName(((TextView) v).getText().toString(), animes);
+                    Intent intent = new Intent(MainActivity.this, AnimeView.class);
+                    startActivityForResult(intent,1);
+                }
+            });
+            binding.listAnimes.addView(animeNames);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            binding.listAnimes.removeAllViews();
+            atualizarListaAnimes();
+        }
     }
 
     @Override

@@ -14,9 +14,18 @@
         android:theme="@style/Theme.MyAnimeList"
         tools:targetApi="31">
         <activity
+            android:name=".AnimeView"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.MyAnimeList" />
+        <activity
+            android:name=".AdicionarAnime"
+            android:exported="false"
+            android:label="@string/title_activity_adicionar_anime"
+            android:theme="@style/Theme.MyAnimeList" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.MyAnimeList.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
