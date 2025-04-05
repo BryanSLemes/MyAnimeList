@@ -3,12 +3,13 @@ package com.myanimelist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.myanimelist.databinding.ActivityMainBinding;
 import java.util.ArrayList;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
         databaseManager = new DatabaseManager(this);
         params.setMargins(0, 0, 0, 30);
 
-        atualizarListaAnimes();
+        animes = databaseManager.getAllAnimeNames();
+        atualizarListaAnimes(animes);
+        atualizarListaPendentAnimes();
 
         binding.addAnime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,10 +44,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,1);
             }
         });
+
+        binding.searchAnime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterList(s.toString(),animes);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
-    private void atualizarListaAnimes() {
-        animes = databaseManager.getAllAnimeNames();
+    private void atualizarListaAnimes(ArrayList<Anime> animes) {
+        binding.listAnimes.removeAllViews();
+        binding.listPendentAnimes.removeAllViews();
         for (int i = 0; i < animes.size(); i++) {
             animeNames = new TextView(this);
             animeNames.setTextSize(18);
@@ -60,6 +77,47 @@ public class MainActivity extends AppCompatActivity {
             });
             binding.listAnimes.addView(animeNames);
         }
+
+        binding.countAnime.setText("Número de Animes: " + animes.size());
+    }
+
+    private void atualizarListaPendentAnimes() {
+        ArrayList<Anime> animesPendentes = databaseManager.getAllPendentAnimeNames();
+        for (int i = 0; i < animesPendentes.size(); i++) {
+            animeNames = new TextView(this);
+            animeNames.setTextSize(18);
+            animeNames.setLayoutParams(params);
+            animeNames.setText(animesPendentes.get(i).getNome());
+            animeNames.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    anime = Anime.findAnimeByName(((TextView) v).getText().toString(), animesPendentes);
+                    Intent intent = new Intent(MainActivity.this, AnimeView.class);
+                    startActivityForResult(intent,1);
+                }
+            });
+            binding.listPendentAnimes.addView(animeNames);
+        }
+
+        binding.pendentAnime.setText("Animes pendentes de dados: " + animesPendentes.size());
+    }
+
+    private void filterList(String query, ArrayList<Anime> animes) {
+        ArrayList<Anime> foundAnimes = new ArrayList<>();
+
+        if (query.isEmpty()) {
+            atualizarListaAnimes(animes);
+        } else {
+            String queryWithoutSpaces = query.replaceAll("\\s+", "").toLowerCase();
+            for (Anime anime : animes) {
+                String animeName = anime.getNome();
+                String animeNameWithoutSpaces = animeName.replaceAll("\\s+", "").toLowerCase();
+                if (animeNameWithoutSpaces.contains(queryWithoutSpaces)) {
+                    foundAnimes.add(anime);
+                }
+            }
+            atualizarListaAnimes(foundAnimes);
+        }
     }
 
     @Override
@@ -67,8 +125,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            binding.listAnimes.removeAllViews();
-            atualizarListaAnimes();
+            animes = databaseManager.getAllAnimeNames();
+            atualizarListaAnimes(animes);
+            atualizarListaPendentAnimes();
         }
     }
 

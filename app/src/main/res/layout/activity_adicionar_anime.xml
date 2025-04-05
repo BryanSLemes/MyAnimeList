@@ -11,76 +11,172 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:id="@+id/addAnimeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/textViewName"
+                android:id="@+id/txtLinkAnime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome do Anime:"
-                android:textSize="18sp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:text="Link do Anime:"
+                android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editTextAnimeName"
+                android:id="@+id/edtAnimeLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Digite o nome do anime"
-                android:inputType="text"
-                android:layout_marginBottom="16dp"/>
-
-            <RadioGroup
-                android:id="@+id/radioGroupImageOption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
-
-                <RadioButton
-                    android:id="@+id/radioButtonSelectImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Selecionar foto"
-                    android:checked="true"/>
-
-                <RadioButton
-                    android:id="@+id/radioButtonEnterPath"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Escrever caminho da imagem"
-                    android:checked="false"/>
-
-
-            </RadioGroup>
-
-            <!-- EditText para inserir o caminho da imagem (quando a opção for 'Escrever caminho') -->
-            <EditText
-                android:id="@+id/editTextImagePath"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Digite o caminho da imagem"
                 android:layout_marginBottom="16dp"
-                android:visibility="gone"/>
+                android:hint="Digite o link do anime"
+                android:inputType="text" />
 
             <Button
-                android:id="@+id/buttonSelectImage"
+                android:id="@+id/btnSearchInformacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Selecionar Foto"
+                android:text="Buscar Informações"
                 android:layout_marginBottom="16dp"/>
 
-            <Button
-                android:id="@+id/buttonSave"
+            <TextView
+                android:id="@+id/txtAnimeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Salvar"
+                android:layout_marginBottom="8dp"
+                android:text="Nome do Anime: *"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtAnimeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Digite o nome do anime"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtAnimeEpisodes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Número de Episódios: "
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtAnimeEpisodes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Digite o número de episódios"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtAnimeStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Status do Anime: "
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtAnimeStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Digite o status do anime"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtAnimeReleaseYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Ano de lançamento do Anime: "
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtAnimeReleaseYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Digite o ano de lançamento do anime"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtAnimeEstudio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Estúdio do Anime: "
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtAnimeEstudio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Digite o estúdio do anime"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtAnimeGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Gênero do Anime:"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtAnimeGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Digite o gênero do anime"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtAnimeSinopse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Sinopse do Anime:"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtAnimeSinopse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Escreva sobre a Sinopse do anime"
+                android:inputType="text" />
+
+            <ImageView
+                android:id="@+id/imgAnime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"/>
+
+            <Button
+                android:id="@+id/btnSelectImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Selecionar Imagem"
                 android:layout_marginBottom="16dp"/>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Salvar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addAnimeLayout" />
+
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

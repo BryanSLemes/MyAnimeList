@@ -11,50 +11,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/searchAnime"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:hint="Digite o nome"
+            android:inputType="text"
+            android:padding="10dp"
             android:layout_marginTop="50dp"
-            android:orientation="horizontal"
+            android:layout_weight="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <EditText
-                android:id="@+id/search_bar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="Digite o nome"
-                android:inputType="text"
-                android:padding="10dp"
-                android:layout_weight="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="20dp"/>
-
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Buscar"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"/>
-
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="40dp"/>
 
         <TextView
             android:id="@+id/addAnime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="17dp"
             android:clickable="true"
             android:text="Adicionar Anime"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/searchAnime" />
+
+        <TextView
+            android:id="@+id/countAnime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addAnime" />
+
+
 
         <LinearLayout
             android:id="@+id/listAnimes"
@@ -67,8 +60,32 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addAnime">
+            app:layout_constraintTop_toBottomOf="@+id/countAnime">
 
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/pendentAnime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listAnimes" />
+
+        <LinearLayout
+            android:id="@+id/listPendentAnimes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/border"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pendentAnime">
 
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
