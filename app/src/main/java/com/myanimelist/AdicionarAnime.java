@@ -5,14 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import com.myanimelist.databinding.ActivityAdicionarAnimeBinding;
 import com.myanimelist.sites.AnimeHeavenManager;
 import com.myanimelist.sites.AnimesOnlineManager;
+import com.myanimelist.sites.IsTheAnimeFinishedManager;
 import com.myanimelist.sites.SetImageViewByLink;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -25,6 +26,7 @@ public class AdicionarAnime extends AppCompatActivity {
     private SetImageViewByLink setImageViewByLink;
     private AnimesOnlineManager animeOnlineManager;
     private AnimeHeavenManager animeHeavenManager;
+    private IsTheAnimeFinishedManager isTheAnimeFinishedManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,26 @@ public class AdicionarAnime extends AppCompatActivity {
             }
         });
 
+        isTheAnimeFinishedManager = new IsTheAnimeFinishedManager(new IsTheAnimeFinishedManager.OnAnimeFetchedListener() {
+            @Override
+            public void onAnimeFetched(Anime anime) {
+                if (anime != null && !anime.getNome().contains("Erro ao carregar: ")) {
+//                    binding.edtAnimeName.setText(anime.getNome());
+//                    binding.edtAnimeGender.setText(anime.getGender());
+//                    binding.edtAnimeReleaseYear.setText("" + anime.getDateRelease());
+//                    binding.edtAnimeEpisodes.setText("" + anime.getNumberEpisodes());
+//                    binding.edtAnimeSinopse.setText(anime.getSinopse());
+//                    if (anime.getImage() != null && anime.getImage().length > 0) {
+//                        Bitmap bitmap = BitmapFactory.decodeByteArray(anime.getImage(), 0, anime.getImage().length);
+//                        binding.imgAnime.setImageBitmap(bitmap);
+//                        animeImage = anime.getImage();
+//                    }
+                }else{
+                    Toast.makeText(AdicionarAnime.this, "Link Inválido", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         binding.btnSelectImage.setOnClickListener(v -> {
             String[] opcoes = {"Galeria", "Link da Web", "Cancelar"};
 
@@ -99,7 +121,7 @@ public class AdicionarAnime extends AppCompatActivity {
             if (link == null || link.trim().isEmpty()){
                 Toast.makeText(this, "Preencha o link do anime", Toast.LENGTH_SHORT).show();
             }else {
-                String[] opcoes = {"Animes Online", "AnimeHeaven", "Cancelar"};
+                String[] opcoes = {"Animes Online", "AnimeHeaven", "Is The Anime Finished.com", "Cancelar"};
                 AnimeLinkOptions(opcoes, link);
             }
         });
@@ -171,8 +193,11 @@ public class AdicionarAnime extends AppCompatActivity {
                         case 1: // AnimeHeaven
                             animeHeavenManager.execute(link);
                             break;
+                        case 2: // AnimeHeaven
+                            animeHeavenManager.execute(link);
+                            break;
 
-                        case 2: //Cancelar
+                        case 3: //Cancelar
                             dialog.dismiss();
                             break;
                     }

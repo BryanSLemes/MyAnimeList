@@ -1,7 +1,6 @@
 package com.myanimelist;
 
 import org.w3c.dom.CDATASection;
-
 import java.util.ArrayList;
 
 public class Anime {

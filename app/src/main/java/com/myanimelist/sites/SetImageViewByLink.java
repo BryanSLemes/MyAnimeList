@@ -4,13 +4,13 @@ import android.os.AsyncTask;
 
 public class SetImageViewByLink extends AsyncTask<String, Void, byte[]> {
 
-    private SetImageViewByLink.OnImageFetchedListener listener;
+    private OnImageFetchedListener listener;
 
     public interface OnImageFetchedListener {
         void onImageFetched(byte[] imagem);
     }
 
-    public SetImageViewByLink(SetImageViewByLink.OnImageFetchedListener listener) {
+    public SetImageViewByLink(OnImageFetchedListener listener) {
         this.listener = listener;
     }
 

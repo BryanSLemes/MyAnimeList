@@ -2,7 +2,6 @@ package com.myanimelist.sites;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;

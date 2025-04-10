@@ -2,12 +2,12 @@ package com.myanimelist;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import com.myanimelist.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 
